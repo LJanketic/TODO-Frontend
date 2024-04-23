@@ -3,24 +3,19 @@ import { Modal, Button, Form } from 'react-bootstrap';
 
 function AddTodoModal({ show, handleClose, handleAddTodo }) {
   const [text, setText] = useState('');
-  const [done, setDone] = useState(false);
 
   const handleTextChange = (e) => {
     setText(e.target.value);
   };
 
-  const handleDoneChange = (e) => {
-    setDone(e.target.checked);
-  };
-
   const handleSubmit = () => {
-    handleAddTodo({ text, done });
+    handleAddTodo({ text });
+    setText(''); 
     handleClose();
   };
 
   const handleModalClose = () => {
     setText('');
-    setDone(false);
     handleClose();
   };
 
@@ -34,9 +29,6 @@ function AddTodoModal({ show, handleClose, handleAddTodo }) {
           <Form.Group controlId="formText">
             <Form.Label>Text</Form.Label>
             <Form.Control type="text" value={text} onChange={handleTextChange} />
-          </Form.Group>
-          <Form.Group controlId="formDone">
-            <Form.Check type="checkbox" label="Done" checked={done} onChange={handleDoneChange} />
           </Form.Group>
         </Form>
       </Modal.Body>
