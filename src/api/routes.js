@@ -4,6 +4,9 @@ const axiosRoutes = {
   getAllTodos() {
     return axiosInstance.get('/api/todos');
   },
+  getAllTodosSorted(sortOrder) {
+    return axiosInstance.get(`/api/todos?sort=${sortOrder}`);
+  },
   getSingleTodo(id) {
     return axiosInstance.get(`/api/todos/${id}`);
   },

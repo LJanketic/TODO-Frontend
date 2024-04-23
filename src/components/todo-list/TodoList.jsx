@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Button, Modal } from 'react-bootstrap';
-import { Trash, PencilSquare } from 'react-bootstrap-icons';
+import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons'; // Import Bootstrap icons
 import axiosRoutes from '../../api/routes';
 import EditTodoModal from '../edit-modal/editModal';
 
@@ -17,10 +17,15 @@ function formatDateTime(dateTimeString) {
   return dateTime.toLocaleString('en-GB', options);
 }
 
-function TodoList({ todos, refreshTodoList }) {
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedTodo, setSelectedTodo] = useState(null);
+function TodoList({ todos, refreshTodoList,sortOrder, setSortOrder }) {
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedTodo, setSelectedTodo] = useState(null);
+  
+    const handleSortToggle = () => {
+      const newSortOrder = sortOrder === 'ASC' ? 'DESC' : 'ASC';
+      setSortOrder(newSortOrder);
+    };
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
@@ -45,7 +50,7 @@ function TodoList({ todos, refreshTodoList }) {
   const handleDeleteTodo = async () => {
     try {
       await axiosRoutes.deleteTodo(selectedTodo.id);
-      refreshTodoList();
+      refreshTodoList(sortOrder);
       handleDeleteModalClose();
     } catch (error) {
       console.error('Error deleting todo:', error);
@@ -55,7 +60,7 @@ function TodoList({ todos, refreshTodoList }) {
   const handleUpdateTodo = async (updatedTodo) => {
     try {
       await axiosRoutes.updateTodo(updatedTodo.id, updatedTodo);
-      refreshTodoList();
+      refreshTodoList(sortOrder);
       handleEditModalClose();
     } catch (error) {
       console.error('Error updating todo:', error);
@@ -69,7 +74,9 @@ function TodoList({ todos, refreshTodoList }) {
         <Table striped bordered>
           <thead className='sticky-top'>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col" onClick={handleSortToggle}>
+                {sortOrder === 'ASC' ? <ArrowUp /> : <ArrowDown />}
+              </th>
               <th scope="col">Description</th>
               <th scope="col">Done</th>
               <th scope="col">Created At</th>
