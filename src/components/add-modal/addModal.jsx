@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import axiosRoutes from '../../api/routes';
 
-function AddTodoModal({ show, handleClose }) {
+function AddTodoModal({ show, handleClose, handleAddTodo }) {
   const [text, setText] = useState('');
   const [done, setDone] = useState(false);
 
@@ -14,18 +13,19 @@ function AddTodoModal({ show, handleClose }) {
     setDone(e.target.checked);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const todoData = { text, done };
-      await axiosRoutes.createTodo(todoData);
-      handleClose();
-    } catch (error) {
-      console.error('Error creating new todo:', error);
-    }
+  const handleSubmit = () => {
+    handleAddTodo({ text, done });
+    handleClose();
+  };
+
+  const handleModalClose = () => {
+    setText('');
+    setDone(false);
+    handleClose();
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleModalClose}>
       <Modal.Header closeButton>
         <Modal.Title>Add New Todo</Modal.Title>
       </Modal.Header>
@@ -41,7 +41,7 @@ function AddTodoModal({ show, handleClose }) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleModalClose}>
           Close
         </Button>
         <Button variant="primary" onClick={handleSubmit}>
