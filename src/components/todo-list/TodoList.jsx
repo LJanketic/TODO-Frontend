@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Modal } from 'react-bootstrap';
+import { Trash, PencilSquare } from 'react-bootstrap-icons';
 import axiosRoutes from '../../api/routes';
 import EditTodoModal from '../edit-modal/editModal';
 
@@ -18,6 +19,7 @@ function formatDateTime(dateTimeString) {
 
 function TodoList({ todos, refreshTodoList }) {
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState(null);
 
   const handleEditModalClose = () => {
@@ -30,10 +32,31 @@ function TodoList({ todos, refreshTodoList }) {
     setShowEditModal(true);
   };
 
+  const handleDeleteModalClose = () => {
+    setShowDeleteModal(false);
+    setSelectedTodo(null);
+  };
+
+  const handleDeleteModalShow = (todo) => {
+    setSelectedTodo(todo);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteTodo = async () => {
+    try {
+      await axiosRoutes.deleteTodo(selectedTodo.id);
+      refreshTodoList();
+      handleDeleteModalClose();
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
+  };
+
   const handleUpdateTodo = async (updatedTodo) => {
     try {
       await axiosRoutes.updateTodo(updatedTodo.id, updatedTodo);
       refreshTodoList();
+      handleEditModalClose();
     } catch (error) {
       console.error('Error updating todo:', error);
     }
@@ -52,12 +75,13 @@ function TodoList({ todos, refreshTodoList }) {
               <th scope="col">Created At</th>
               <th scope="col">Updated At</th>
               <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
             {todos.length === 0 ? (
               <tr>
-                <td colSpan="6">No items to display</td>
+                <td colSpan="7">No items to display</td>
               </tr>
             ) : (
               todos.map((todo, index) => (
@@ -68,7 +92,14 @@ function TodoList({ todos, refreshTodoList }) {
                   <td>{formatDateTime(todo.createdAt)}</td>
                   <td>{formatDateTime(todo.updatedAt)}</td>
                   <td>
-                    <Button variant="primary" onClick={() => handleEditModalShow(todo)}>Edit</Button>
+                    <Button variant="primary" onClick={() => handleEditModalShow(todo)}>
+                      <PencilSquare />
+                    </Button>
+                  </td>
+                  <td>
+                    <Button variant="danger" onClick={() => handleDeleteModalShow(todo)}>
+                      <Trash />
+                    </Button>
                   </td>
                 </tr>
               ))
@@ -77,6 +108,16 @@ function TodoList({ todos, refreshTodoList }) {
         </Table>
       </div>
       <EditTodoModal show={showEditModal} handleClose={handleEditModalClose} handleUpdateTodo={handleUpdateTodo} selectedTodo={selectedTodo} />
+      <Modal show={showDeleteModal} onHide={handleDeleteModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this ToDo?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDeleteModalClose}>Cancel</Button>
+          <Button variant="danger" onClick={handleDeleteTodo}>Confirm</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
