@@ -21,20 +21,10 @@ function TodoList() {
             </tr>
           </thead>
           <tbody>
-            {placeholderData.length === 0 ? (
+            {placeholderData.length === (
               <tr>
                 <td colSpan="5">No items to display</td>
               </tr>
-            ) : (
-              placeholderData.map(todo => (
-                <tr key={todo.id}>
-                  <td>{todo.id}</td>
-                  <td>{todo.description}</td>
-                  <td>{todo.done ? 'Yes' : 'No'}</td>
-                  <td>{todo.createdAt}</td>
-                  <td>{todo.updatedAt}</td>
-                </tr>
-              ))
             )}
           </tbody>
         </Table>
