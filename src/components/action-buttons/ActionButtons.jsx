@@ -15,8 +15,7 @@ function ActionButtons({ handleAddTodo }) {
 
   return (
     <Container className="d-flex justify-content-center mt-3">
-      <Button variant="primary" className="me-2" style={{ width: '150px' }} onClick={handleShowModal}>Create new</Button>
-      <Button variant="success" style={{ width: '150px' }}>Update</Button>
+      <Button variant="success" className="me-2" style={{ width: '150px' }} onClick={handleShowModal}>Create new</Button>
       <AddTodoModal show={showModal} handleClose={handleCloseModal} handleAddTodo={handleAddTodo} />
     </Container>
   );
