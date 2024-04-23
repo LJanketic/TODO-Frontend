@@ -1,16 +1,8 @@
-const axiosRoutes = $axios => ({
-    getAllTodos() {
-      return $axios.get('/api/todos');
-    },
-    getSingleTodo(id) {
-      return $axios.get(`/api/todos/${id}`);
-    },
-    createTodo(todoData) {
-      return $axios.post('/api/todos', todoData);
-    },
-    updateTodo(id, todoData) {
-      return $axios.patch(`/api/todos/${id}`, todoData);
-    }
+import axios from 'axios';
+
+const backendUrl = process.env.FRONTEND_URI ?? 'http://localhost:8080/';
+const axiosInstance = axios.create({
+  baseURL: backendUrl,
 });
 
-export default axiosRoutes;
+export default axiosInstance;
