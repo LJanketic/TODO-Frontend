@@ -39,7 +39,7 @@ function TodoList() {
               </tr>
             ) : (
               todos.map((todo, index) => (
-                <tr key={todo._id}>
+                <tr key={todo.id}>
                   <td>{index + 1}</td>
                   <td>{todo.text}</td>
                   <td>{todo.done ? 'Yes' : 'No'}</td>
