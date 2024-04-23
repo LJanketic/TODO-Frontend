@@ -18,7 +18,7 @@ function AddTodoModal({ show, handleClose }) {
     try {
       const todoData = { text, done };
       await axiosRoutes.createTodo(todoData);
-      handleClose(); // Close the modal after creating a new todo
+      handleClose();
     } catch (error) {
       console.error('Error creating new todo:', error);
     }
