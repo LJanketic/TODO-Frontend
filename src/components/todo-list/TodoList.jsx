@@ -2,6 +2,18 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 
 function TodoList({ todos }) {
+    function formatDateTime(dateTimeString) {
+        const dateTime = new Date(dateTimeString);
+        const options = {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        };
+        return dateTime.toLocaleString('en-GB', options);
+      }
     return (
       <div>
         <h1 className="text-center mb-4">ToDo List</h1>
@@ -27,8 +39,8 @@ function TodoList({ todos }) {
                     <td>{index + 1}</td>
                     <td>{todo.text}</td>
                     <td>{todo.done ? 'Yes' : 'No'}</td>
-                    <td>{todo.createdAt}</td>
-                    <td>{todo.updatedAt}</td>
+                    <td>{formatDateTime(todo.createdAt)}</td>
+                    <td>{formatDateTime(todo.updatedAt)}</td>
                   </tr>
                 ))
               )}
