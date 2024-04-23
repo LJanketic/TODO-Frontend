@@ -4,14 +4,10 @@ import TodoList from './components/todo-list/TodoList';
 import ActionButtons from './components/action-buttons/ActionButtons';
 import axiosRoutes from './api/routes';
 
-function TodoApp() {
+function App() {
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  const fetchTodos = async () => {
+  const refreshTodoList = async () => {
     try {
       const fetchedTodos = await axiosRoutes.getAllTodos();
       setTodos(fetchedTodos.data);
@@ -20,21 +16,16 @@ function TodoApp() {
     }
   };
 
-  const handleAddTodo = async (todoData) => {
-    try {
-      await axiosRoutes.createTodo(todoData);
-      fetchTodos();
-    } catch (error) {
-      console.error('Error creating new todo:', error);
-    }
-  };
+  useEffect(() => {
+    refreshTodoList();
+  }, []);
 
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-      <TodoList todos={todos} />
-      <ActionButtons handleAddTodo={handleAddTodo} />
+      <TodoList todos={todos} refreshTodoList={refreshTodoList} />
+      <ActionButtons refreshTodoList={refreshTodoList} />
     </Container>
   );
 }
 
-export default TodoApp;
+export default App;

@@ -12,6 +12,9 @@ const axiosRoutes = {
   },
   updateTodo(id, todoData) {
     return axiosInstance.patch(`/api/todos/${id}`, todoData);
+  },
+  deleteTodo(id) {
+    return axiosInstance.delete(`/api/todos/${id}`);
   }
 };
 
