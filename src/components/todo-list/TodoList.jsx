@@ -20,20 +20,20 @@ function formatDateTime(dateTimeString) {
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-    hour12: false,
+    hour12: false
   };
   return dateTime.toLocaleString('en-GB', options);
 }
 
 function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedTodo, setSelectedTodo] = useState(null);
-  
-    const handleSortToggle = () => {
-      const newSortOrder = sortOrder === 'ASC' ? 'DESC' : 'ASC';
-      setSortOrder(newSortOrder);
-    };
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState(null);
+
+  const handleSortToggle = () => {
+    const newSortOrder = sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    setSortOrder(newSortOrder);
+  };
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
@@ -78,9 +78,11 @@ function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
   return (
     <div>
       <h1 className="text-center mb-4">ToDo List</h1>
-      <div className="table-container text-center" style={{ maxHeight: '200px', minHeight: '400px', overflow: 'auto' }}>
+      <div
+        className="table-container text-center"
+        style={{ maxHeight: '200px', minHeight: '400px', overflow: 'auto' }}>
         <Table striped bordered>
-          <thead className='sticky-top'>
+          <thead className="sticky-top">
             <tr>
               <th scope="col" onClick={handleSortToggle}>
                 {sortOrder === 'ASC' ? <ArrowUp /> : <ArrowDown />}
@@ -122,15 +124,24 @@ function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
           </tbody>
         </Table>
       </div>
-      <EditTodoModal show={showEditModal} handleClose={handleEditModalClose} handleUpdateTodo={handleUpdateTodo} selectedTodo={selectedTodo} />
+      <EditTodoModal
+        show={showEditModal}
+        handleClose={handleEditModalClose}
+        handleUpdateTodo={handleUpdateTodo}
+        selectedTodo={selectedTodo}
+      />
       <Modal show={showDeleteModal} onHide={handleDeleteModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this ToDo?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleDeleteModalClose}>Cancel</Button>
-          <Button variant="danger" onClick={handleDeleteTodo}>Confirm</Button>
+          <Button variant="secondary" onClick={handleDeleteModalClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDeleteTodo}>
+            Confirm
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
