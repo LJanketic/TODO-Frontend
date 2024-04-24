@@ -17,7 +17,7 @@ function AddTodoModal({ show, handleClose, handleAddTodo }) {
 
   const handleSubmit = () => {
     handleAddTodo({ text });
-    setText(''); 
+    setText('');
     handleClose();
   };
 
