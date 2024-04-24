@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Button, Modal } from 'react-bootstrap';
-import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons'; // Import Bootstrap icons
+import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons';
 import axiosRoutes from '../../api/routes';
 import EditTodoModal from '../edit-modal/editModal';
 
