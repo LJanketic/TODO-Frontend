@@ -25,7 +25,7 @@ function formatDateTime(dateTimeString) {
   return dateTime.toLocaleString('en-GB', options);
 }
 
-function TodoList({ todos, refreshTodoList,sortOrder, setSortOrder }) {
+function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedTodo, setSelectedTodo] = useState(null);

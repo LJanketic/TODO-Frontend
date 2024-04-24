@@ -7,7 +7,7 @@ EditTodoModal.propTypes = {
   handleClose: PropTypes.func.isRequired,
   handleUpdateTodo: PropTypes.func.isRequired,
   selectedTodo: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     done: PropTypes.bool.isRequired,
     createdAt: PropTypes.string.isRequired,
