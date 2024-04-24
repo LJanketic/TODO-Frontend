@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Container } from 'react-bootstrap';
 import AddTodoModal from '../add-modal/addModal';
+
+ActionButtons.propTypes = {
+  handleAddTodo: PropTypes.func.isRequired,
+};
 
 function ActionButtons({ handleAddTodo }) {
   const [showModal, setShowModal] = useState(false);

@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
+
+AddTodoModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleAddTodo: PropTypes.func.isRequired,
+};
 
 function AddTodoModal({ show, handleClose, handleAddTodo }) {
   const [text, setText] = useState('');
