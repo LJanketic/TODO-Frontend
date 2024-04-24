@@ -31,8 +31,15 @@ function App() {
   }, [sortOrder]);
 
   return (
-    <Container className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-      <TodoList todos={todos} refreshTodoList={refreshTodoList} sortOrder={sortOrder} setSortOrder={setSortOrder} />
+    <Container
+      className="d-flex flex-column justify-content-center align-items-center"
+      style={{ minHeight: '100vh' }}>
+      <TodoList
+        todos={todos}
+        refreshTodoList={refreshTodoList}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+      />
       <ActionButtons handleAddTodo={handleAddTodo} />
     </Container>
   );

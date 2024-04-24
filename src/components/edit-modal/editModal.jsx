@@ -11,10 +11,9 @@ EditTodoModal.propTypes = {
     text: PropTypes.string.isRequired,
     done: PropTypes.bool.isRequired,
     createdAt: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-  }),
+    updatedAt: PropTypes.string.isRequired
+  })
 };
-
 
 function EditTodoModal({ show, handleClose, handleUpdateTodo, selectedTodo }) {
   const [text, setText] = useState('');
@@ -29,7 +28,8 @@ function EditTodoModal({ show, handleClose, handleUpdateTodo, selectedTodo }) {
   }, [selectedTodo]);
 
   useEffect(() => {
-    const isTodoChanged = selectedTodo && (text !== selectedTodo.text || done !== selectedTodo.done);
+    const isTodoChanged =
+      selectedTodo && (text !== selectedTodo.text || done !== selectedTodo.done);
     setIsDirty(isTodoChanged);
   }, [selectedTodo, text, done]);
 
@@ -64,8 +64,12 @@ function EditTodoModal({ show, handleClose, handleUpdateTodo, selectedTodo }) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>Close</Button>
-        <Button variant="primary" onClick={handleUpdate} disabled={!isDirty}>Update</Button>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleUpdate} disabled={!isDirty}>
+          Update
+        </Button>
       </Modal.Footer>
     </Modal>
   );
