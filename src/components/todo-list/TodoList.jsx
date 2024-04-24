@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Table, Button, Modal } from 'react-bootstrap';
 import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons';
 import axiosRoutes from '../../api/routes';
 import EditTodoModal from '../edit-modal/editModal';
+
+TodoList.propTypes = {
+  todos: PropTypes.array.isRequired,
+  refreshTodoList: PropTypes.func.isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  setSortOrder: PropTypes.func.isRequired
+};
 
 function formatDateTime(dateTimeString) {
   const dateTime = new Date(dateTimeString);
@@ -17,7 +25,7 @@ function formatDateTime(dateTimeString) {
   return dateTime.toLocaleString('en-GB', options);
 }
 
-function TodoList({ todos, refreshTodoList,sortOrder, setSortOrder }) {
+function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedTodo, setSelectedTodo] = useState(null);

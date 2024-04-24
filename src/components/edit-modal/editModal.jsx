@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
+
+EditTodoModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleUpdateTodo: PropTypes.func.isRequired,
+  selectedTodo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    done: PropTypes.bool.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
+  }),
+};
+
 
 function EditTodoModal({ show, handleClose, handleUpdateTodo, selectedTodo }) {
   const [text, setText] = useState('');
