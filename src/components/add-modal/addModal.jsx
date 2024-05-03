@@ -41,7 +41,12 @@ function AddTodoModal({ show, handleClose }) {
         <Form>
           <Form.Group controlId="formText">
             <Form.Label>Text</Form.Label>
-            <Form.Control type="text" value={text} onChange={handleTextChange} />
+            <Form.Control
+              type="text"
+              value={text}
+              onChange={handleTextChange}
+              placeholder="Enter ToDo Text"
+            />
           </Form.Group>
           <Form.Group controlId="formDone">
             <Form.Label>Done</Form.Label>
