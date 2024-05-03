@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import axiosRoutes from './api/routes';
+import axiosRoutes from '../../api/routes';
 
 const TodoContext = createContext();
 
@@ -28,12 +28,31 @@ export const TodoProvider = ({ children }) => {
     }
   };
 
+  const deleteTodo = async (todoId) => {
+    try {
+      await axiosRoutes.deleteTodo(todoId);
+      refreshTodoList();
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
+  };
+
+  const updateTodo = async (updatedTodo) => {
+    try {
+      await axiosRoutes.updateTodo(updatedTodo.id, updatedTodo);
+      refreshTodoList();
+    } catch (error) {
+      console.error('Error updating todo:', error);
+    }
+  };
+
   useEffect(() => {
     refreshTodoList();
   }, [sortOrder, refreshTodoList]);
 
   return (
-    <TodoContext.Provider value={{ todos, sortOrder, setSortOrder, addTodo }}>
+    <TodoContext.Provider
+      value={{ todos, sortOrder, setSortOrder, addTodo, deleteTodo, updateTodo }}>
       {children}
     </TodoContext.Provider>
   );

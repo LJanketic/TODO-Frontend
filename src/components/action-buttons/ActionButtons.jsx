@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import AddTodoModal from '../add-modal/AddModal';
+import { useTodoContext } from '../context/TodoContext';
 
-ActionButtons.propTypes = {
-  handleAddTodo: PropTypes.func.isRequired
-};
-
-function ActionButtons({ handleAddTodo }) {
+function ActionButtons() {
+  const { addTodo } = useTodoContext();
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => {
@@ -27,7 +25,7 @@ function ActionButtons({ handleAddTodo }) {
         onClick={handleShowModal}>
         Create new
       </Button>
-      <AddTodoModal show={showModal} handleClose={handleCloseModal} handleAddTodo={handleAddTodo} />
+      <AddTodoModal show={showModal} handleClose={handleCloseModal} handleAddTodo={addTodo} />
     </Container>
   );
 }

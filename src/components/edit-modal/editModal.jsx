@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { useTodoContext } from '../context/TodoContext';
 
-EditTodoModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleUpdateTodo: PropTypes.func.isRequired,
-  selectedTodo: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    done: PropTypes.bool.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired
-  })
-};
-
-function EditTodoModal({ show, handleClose, handleUpdateTodo, selectedTodo }) {
+function EditTodoModal({ show, handleClose, selectedTodo }) {
+  const { updateTodo } = useTodoContext();
   const [text, setText] = useState('');
   const [done, setDone] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
@@ -43,7 +32,8 @@ function EditTodoModal({ show, handleClose, handleUpdateTodo, selectedTodo }) {
 
   const handleUpdate = () => {
     const updatedTodo = { ...selectedTodo, text, done };
-    handleUpdateTodo(updatedTodo);
+    console.log(updatedTodo);
+    updateTodo(updatedTodo);
     handleClose();
   };
 
@@ -74,5 +64,17 @@ function EditTodoModal({ show, handleClose, handleUpdateTodo, selectedTodo }) {
     </Modal>
   );
 }
+
+EditTodoModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  selectedTodo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    done: PropTypes.bool.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired
+  })
+};
 
 export default EditTodoModal;

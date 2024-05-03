@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { useTodoContext } from '../context/TodoContext';
 
-AddTodoModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleAddTodo: PropTypes.func.isRequired
-};
-
-function AddTodoModal({ show, handleClose, handleAddTodo }) {
+function AddTodoModal({ show, handleClose }) {
+  const { addTodo } = useTodoContext();
   const [text, setText] = useState('');
   const [done, setDone] = useState(false);
 
@@ -21,7 +17,7 @@ function AddTodoModal({ show, handleClose, handleAddTodo }) {
   };
 
   const handleSubmit = () => {
-    handleAddTodo({ text, done });
+    addTodo({ text, done });
     handleClose();
   };
 
@@ -58,5 +54,10 @@ function AddTodoModal({ show, handleClose, handleAddTodo }) {
     </Modal>
   );
 }
+
+AddTodoModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired
+};
 
 export default AddTodoModal;
