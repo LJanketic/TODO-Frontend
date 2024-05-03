@@ -48,7 +48,8 @@ function EditTodoModal({ show, handleClose, selectedTodo }) {
             <Form.Control type="text" value={text} onChange={handleTextChange} />
           </Form.Group>
           <Form.Group controlId="formDone">
-            <Form.Check type="checkbox" label="Done" checked={done} onChange={handleDoneChange} />
+            <Form.Label>Done</Form.Label>
+            <Form.Check type="checkbox" checked={done} onChange={handleDoneChange} />
           </Form.Group>
         </Form>
       </Modal.Body>
