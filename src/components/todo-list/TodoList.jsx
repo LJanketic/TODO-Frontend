@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table, Button, Modal } from 'react-bootstrap';
 import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons';
 import axiosRoutes from '../../api/routes';
-import EditTodoModal from '../edit-modal/editModal';
+import EditTodoModal from '../edit-modal/EditModal';
 
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
