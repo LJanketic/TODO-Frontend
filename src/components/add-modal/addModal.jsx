@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTodoContext } from '../context/TodoContext';
@@ -7,6 +7,13 @@ function AddTodoModal({ show, handleClose }) {
   const { addTodo } = useTodoContext();
   const [text, setText] = useState('');
   const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (show) {
+      setDone(false);
+      setText('');
+    }
+  }, [show]);
 
   const handleTextChange = (e) => {
     setText(e.target.value);
@@ -22,8 +29,6 @@ function AddTodoModal({ show, handleClose }) {
   };
 
   const handleModalClose = () => {
-    setText('');
-    setDone(false);
     handleClose();
   };
 

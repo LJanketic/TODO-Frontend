@@ -32,7 +32,6 @@ function EditTodoModal({ show, handleClose, selectedTodo }) {
 
   const handleUpdate = () => {
     const updatedTodo = { ...selectedTodo, text, done };
-    console.log(updatedTodo);
     updateTodo(updatedTodo);
     handleClose();
   };
