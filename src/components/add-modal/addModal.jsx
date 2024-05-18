@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { useTodoContext } from '../context/TodoContext';
 
-AddTodoModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleAddTodo: PropTypes.func.isRequired
-};
-
-function AddTodoModal({ show, handleClose, handleAddTodo }) {
+function AddTodoModal({ show, handleClose }) {
+  const { addTodo } = useTodoContext();
   const [text, setText] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (show) {
+      setDone(false);
+      setText('');
+    }
+  }, [show]);
 
   const handleTextChange = (e) => {
     setText(e.target.value);
   };
 
+  const handleDoneChange = (e) => {
+    setDone(e.target.checked);
+  };
+
   const handleSubmit = () => {
-    handleAddTodo({ text });
-    setText('');
+    addTodo({ text, done });
     handleClose();
   };
 
   const handleModalClose = () => {
-    setText('');
     handleClose();
   };
 
@@ -35,7 +41,16 @@ function AddTodoModal({ show, handleClose, handleAddTodo }) {
         <Form>
           <Form.Group controlId="formText">
             <Form.Label>Text</Form.Label>
-            <Form.Control type="text" value={text} onChange={handleTextChange} />
+            <Form.Control
+              type="text"
+              value={text}
+              onChange={handleTextChange}
+              placeholder="Enter ToDo Text"
+            />
+          </Form.Group>
+          <Form.Group controlId="formDone">
+            <Form.Label>Done</Form.Label>
+            <Form.Check type="checkbox" checked={done} onChange={handleDoneChange} />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -50,5 +65,10 @@ function AddTodoModal({ show, handleClose, handleAddTodo }) {
     </Modal>
   );
 }
+
+AddTodoModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired
+};
 
 export default AddTodoModal;

@@ -1,39 +1,33 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Table, Button, Modal } from 'react-bootstrap';
 import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons';
-import axiosRoutes from '../../api/routes';
-import EditTodoModal from '../edit-modal/editModal';
+import EditTodoModal from '../edit-modal/EditModal';
+import { useTodoContext } from '../context/TodoContext';
 
-TodoList.propTypes = {
-  todos: PropTypes.array.isRequired,
-  refreshTodoList: PropTypes.func.isRequired,
-  sortOrder: PropTypes.string.isRequired,
-  setSortOrder: PropTypes.func.isRequired
-};
-
-function formatDateTime(dateTimeString) {
-  const dateTime = new Date(dateTimeString);
-  const options = {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false
-  };
-  return dateTime.toLocaleString('en-GB', options);
-}
-
-function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedTodo, setSelectedTodo] = useState(null);
+function TodoList() {
+  const { todos, sortOrder, setSortOrder, deleteTodo, updateTodo } = useTodoContext();
 
   const handleSortToggle = () => {
     const newSortOrder = sortOrder === 'ASC' ? 'DESC' : 'ASC';
     setSortOrder(newSortOrder);
   };
+
+  const formatDateTime = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    };
+    return dateTime.toLocaleString('en-GB', options);
+  };
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState(null);
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
@@ -57,8 +51,7 @@ function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
 
   const handleDeleteTodo = async () => {
     try {
-      await axiosRoutes.deleteTodo(selectedTodo.id);
-      refreshTodoList(sortOrder);
+      await deleteTodo(selectedTodo.id);
       handleDeleteModalClose();
     } catch (error) {
       console.error('Error deleting todo:', error);
@@ -67,8 +60,7 @@ function TodoList({ todos, refreshTodoList, sortOrder, setSortOrder }) {
 
   const handleUpdateTodo = async (updatedTodo) => {
     try {
-      await axiosRoutes.updateTodo(updatedTodo.id, updatedTodo);
-      refreshTodoList(sortOrder);
+      await updateTodo(selectedTodo.id, updatedTodo);
       handleEditModalClose();
     } catch (error) {
       console.error('Error updating todo:', error);
