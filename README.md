@@ -1,6 +1,7 @@
 # ToDo Application Frontend
 
 This is the frontend repository of the ToDo app.
+The point of this frontend is to be as simple as possible to demonstrate the functionality of the backend.
 
 ## Secrets
 
