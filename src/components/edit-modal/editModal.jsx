@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useTodoContext } from '../context/todoContext';
+import { useTodoContext } from '../context/TodoContext';
 
 function EditTodoModal({ show, handleClose, selectedTodo }) {
   const { updateTodo } = useTodoContext();
