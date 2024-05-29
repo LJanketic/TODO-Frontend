@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import AddTodoModal from '../add-modal/addModal';
-import { useTodoContext } from '../context/todoContext';
+import AddTodoModal from '../add-modal/AddModal';
+import { useTodoContext } from '../context/TodoContext';
 
 function ActionButtons() {
   const { addTodo } = useTodoContext();

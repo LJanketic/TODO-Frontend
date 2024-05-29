@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons';
-import EditTodoModal from '../edit-modal/editModal';
-import DeleteTodoModal from '../delete-modal/deleteModal';
+import EditTodoModal from '../edit-modal/EditModal';
+import DeleteTodoModal from '../delete-modal/DeleteModal';
 import { useTodoContext } from '../context/TodoContext';
 
 function TodoList() {
