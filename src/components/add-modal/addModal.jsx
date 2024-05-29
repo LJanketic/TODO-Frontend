@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useTodoContext } from '../context/TodoContext';
+import { useTodoContext } from '../context/todoContext';
 
 function AddTodoModal({ show, handleClose }) {
   const { addTodo } = useTodoContext();

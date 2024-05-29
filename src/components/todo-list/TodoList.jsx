@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Button, Modal } from 'react-bootstrap';
 import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons';
 import EditTodoModal from '../edit-modal/editModal';
-import { useTodoContext } from '../context/TodoContext';
+import { useTodoContext } from '../context/todoContext';
 
 function TodoList() {
   const { todos, sortOrder, setSortOrder, deleteTodo, updateTodo } = useTodoContext();

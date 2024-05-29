@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import TodoList from './components/todo-list/TodoList';
-import ActionButtons from './components/action-buttons/ActionButtons';
-import { TodoProvider } from './components/context/TodoContext';
+import TodoList from './components/todo-list/todoList';
+import ActionButtons from './components/action-buttons/actionButtons';
+import { TodoProvider } from './components/context/todoContext';
 
 function App() {
   return (
