@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Button, Modal } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { Trash, PencilSquare, ArrowDown, ArrowUp } from 'react-bootstrap-icons';
 import EditTodoModal from '../edit-modal/editModal';
+import DeleteTodoModal from '../delete-modal/deleteModal';
 import { useTodoContext } from '../context/todoContext';
 
 function TodoList() {
@@ -122,20 +123,12 @@ function TodoList() {
         handleUpdateTodo={handleUpdateTodo}
         selectedTodo={selectedTodo}
       />
-      <Modal show={showDeleteModal} onHide={handleDeleteModalClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this ToDo?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleDeleteModalClose}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleDeleteTodo}>
-            Confirm
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteTodoModal
+        show={showDeleteModal}
+        handleClose={handleDeleteModalClose}
+        handleDeleteTodo={handleDeleteTodo}
+        selectedTodo={selectedTodo}
+      />
     </div>
   );
 }
